@@ -2,6 +2,8 @@
 
 This Python script transcribes audio captured by your microphone in near real-time. Simply speak into your microphone and watch the transcription appear in your terminal.
 
+![image](https://github.com/user-attachments/assets/a8a43178-69dc-4077-938d-236408b42b23)
+
 ## Getting Started
 
 1. Install the required packages using `requirements.txt`:
