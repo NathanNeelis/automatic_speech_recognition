@@ -1,0 +1,13 @@
+pyaudio
+#wave
+#huggingface_hub
+#tokenizers
+#onnxruntime
+#av
+#tqdm
+#OpenNMT-py
+#ctranslate2
+faster-whisper
+transformers
+speechrecognition 
+ 
