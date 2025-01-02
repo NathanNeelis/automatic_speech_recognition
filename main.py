@@ -7,6 +7,18 @@ import tempfile
 import os
 
 def transcribe_audio_stream():
+    """
+    records audio through the mic
+    transcribes it near real time using a whisper model. This model can be changed for something else, e.g, NL languange
+    prints the transcribation as output.
+
+    todo;
+    save transcribations in a log file
+    check languange on interpunction and readability. if bad, use LLM to upgrade?
+    
+    """
+
+
     # Load the pre-trained ASR pipeline from transformers
     print("Loading model...")
     # asr_pipeline = pipeline("automatic-speech-recognition", model="openai/whisper-medium")
@@ -31,21 +43,22 @@ def transcribe_audio_stream():
 
             # Convert audio to a WAV file
             print("Processing audio...")
-            temp_wav = None
+            temp_wav = None # initialize temp_wav variable
+
             try:
-                with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_wav:
+                with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_wav: # file is deleted in finally statement
                     with wave.open(temp_wav.name, "wb") as wf:
                         wf.setnchannels(1) 
                         wf.setsampwidth(2)
-                        wf.setframerate(44100)  
+                        wf.setframerate(44100) # 44100 is correct frequency to my mic. If this does not work, see of 16000 works. 
                         wf.writeframes(audio.get_raw_data())
 
-                    # Use the pipeline to transcribe the WAV file
+                    # Transcribe the WAV file
                     segments, info = model.transcribe(temp_wav.name)
                     for segment in segments:
                         print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
 
-                    # alternative option, using transformers pipeline
+                    # Alternative option, using transformers pipeline to transcribe the WAV file
                     # transcription = asr_pipeline(temp_wav.name)
                     # print(f"Transcription: {transcription['text']}")
             except Exception as e:
@@ -56,7 +69,7 @@ def transcribe_audio_stream():
                     os.remove(temp_wav.name)
 
     except KeyboardInterrupt:
-        print("\nExiting...")
+        print("\n Recording & transcription stopped...")
 
 if __name__ == "__main__":
     transcribe_audio_stream()
