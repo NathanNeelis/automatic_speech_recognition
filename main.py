@@ -14,7 +14,7 @@ def transcribe_audio_stream():
 
     # Initialize the recognizer and microphone
     recognizer = sr.Recognizer()
-    mic = sr.Microphone(chunk_size=4096)
+    mic = sr.Microphone(chunk_size=4096) # change chunking size to bigger/smaller for performance
 
     print("Model loaded. Adjusting for ambient noise, please wait...")
     with mic as source:
