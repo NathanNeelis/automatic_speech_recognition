@@ -10,4 +10,4 @@ pyaudio
 faster-whisper
 transformers
 speechrecognition 
- 
+
